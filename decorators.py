@@ -66,4 +66,5 @@ def gen_list(count):
 # actually this decorator syntac is equivilant to
 # gen_list = my_timer(gen_list)
 
+
 gen_list(10000000)

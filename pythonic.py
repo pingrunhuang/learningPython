@@ -71,3 +71,14 @@ def my_monitor(disk_name):
 # consumer-producer with multithreading in python
 
 
+
+
+
+class my_class():
+    def __str__(self):
+        print('this is used when using str(object)')
+    def __repr__(self):
+        print("this is used when user type the object in the interactive mode")
+    # use ''.join() to join all the item in a collection into one long string
+
+

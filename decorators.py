@@ -1,6 +1,9 @@
 # /usr/bin/python
 
 # used for decorating with multiple decorators
+# @ is equal to func=decorator(func)
+
+
 from functools import wraps
 
 def my_decorator(some_func):

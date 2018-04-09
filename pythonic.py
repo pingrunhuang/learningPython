@@ -71,7 +71,8 @@ def my_monitor(disk_name):
 # consumer-producer with multithreading in python
 
 
-
+# transform if a then b else c 
+x = "result1" if 2 > 1  else "result2"
 
 
 class my_class():

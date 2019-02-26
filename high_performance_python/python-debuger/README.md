@@ -1,0 +1,6 @@
+- check variable contents: `args`
+- next: `n`
+- continue: `c`
+- step: `s`
+- show the current line number: `w`
+- start debug: 

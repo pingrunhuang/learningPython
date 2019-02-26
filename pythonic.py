@@ -1,6 +1,6 @@
-'''
+"""
 this script records all the use cases that I think are pythonic
-'''
+"""
 
 # use enumerate to get the index along with the value
 L = [i*i for i in range(5)]

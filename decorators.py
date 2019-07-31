@@ -71,3 +71,36 @@ def gen_list(count):
 
 
 gen_list(10000000)
+
+"""
+Decorator for dp programming
+"""
+import functools
+def memoize(func):
+    memo = dict()
+    @functools.wraps(func)
+    def inner(*args):
+        if args not in memo:
+            memo[args] = func(*args)
+        return memo[args]
+    return inner
+
+@memoize
+def nsum(n):
+    assert n>=0
+    return 0 if n == 0 else nsum(n-1) + n 
+
+@memoize
+def fibonacci(n):
+    assert n>=0
+    return n if n in (0,1) else fibonacci(n-1) + fibonacci(n-2)
+
+if __name__ == "__main__":
+    from timeit import Timer
+    measure = [
+        {'exec': 'fibonacci(100)','import':'fibonacci', 'func':fibonacci},
+        {'exec': 'nsum(200)', 'import':'nsum', 'func':nsum}
+    ]
+    for m in measure:
+        t = Timer(stmt=m["exec"], setup="from __main__ import {}".format(m["import"]))
+        print("name: {}, doc: {}, executing: {}, time: {}".format(m["func"].__name__, m["func"].__doc__, m["exec"], t.timeit()))

@@ -4,6 +4,8 @@ import random
 async def my_sleep(i: int):
     print("Started coroutine {}".format(i))
     interval = random.randint(1, 5)
+    # here is the core section to make the code async
+    # give back the control of the program to eventloop
     await asyncio.sleep(interval)
     print("Finished coroutine {} in {} seconds".format(i, interval))
 

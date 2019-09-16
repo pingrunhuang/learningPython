@@ -16,9 +16,9 @@ class CoffeFactory:
     using coffee factory is good for not creating too many object
     '''
     coffee_dict = {}
-    def get_coffee(name):
-        if coffee_dict.has_key(name) == False:
-            self.coffee_dict[name] = Coffe(name)
+    def get_coffee(self, name):
+        if CoffeFactory.coffee_dict.get(name) is None:
+            self.coffee_dict[name] = Coffee(name)
         return self.coffee_dict[name]
     def getCoffeeCount(self):
         return len(self.coffee_dict)

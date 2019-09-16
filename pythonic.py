@@ -14,7 +14,7 @@ for item in reversed(L):
     print(item)
 
 # use any
-def has_primary_key(rows):
+def has_primary_key_any(rows):
     return any(row[1] == 0 and row[9] == 'yes' for row in rows)
 def has_primary_key(rows):
     for row in rows:
@@ -31,6 +31,7 @@ def has_primary_key(rows):
 def func(*args, **kwargs):
     # 3306 is the default value
     port = kwargs.get('port', 3306)
+    return port
 
 # list.pop() to get and delete value
 

@@ -14,4 +14,8 @@
           col.append(ws.cell(row, col).value)
           dataset.append(col)
     ``` 
-  
+
+# plotting libs 
+1. matplotlib
+2. seaborn
+3. py-echart

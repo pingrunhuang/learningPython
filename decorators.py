@@ -157,3 +157,15 @@ if __name__ == "__main__":
     gen_list2(100)
 
     test_class_decorator()
+
+
+############################# Implement decorator class ###############################
+
+from abc import ABCMeta, abstractclassmethod
+class BaseWrapper(metaclass=ABCMeta):
+    @abstractclassmethod
+    def __call__(self, func):
+        pass
+
+
+

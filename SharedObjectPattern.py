@@ -30,3 +30,10 @@ class Customer:
     def order(self, coffee_name):
         print("%s ordered a cup of coffee:%s"%(self.name,coffee_name))
         return self.coffee_factory.get_coffee(coffee_name)
+
+
+################################################ Singleton with metaclass ################################################
+
+class Singleton(type):
+    def __init__(cls):
+        pass

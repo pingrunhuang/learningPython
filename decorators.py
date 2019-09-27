@@ -162,10 +162,17 @@ if __name__ == "__main__":
 ############################# Implement decorator class ###############################
 
 from abc import ABCMeta, abstractclassmethod
+# a base wrapper for decorator class 
 class BaseWrapper(metaclass=ABCMeta):
     @abstractclassmethod
     def __call__(self, func):
         pass
 
 
+class RetryConnection(BaseWrapper):
 
+    def __init__(self):
+        pass
+    
+    def __call__(self):
+        pass

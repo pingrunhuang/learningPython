@@ -3,11 +3,13 @@
 """
 used for decorating with multiple decorators
 @ is equal to func=decorator(func) which is essentially creating a new function
+
+Essentially, decorator is a way of metaprogramming
 """
 
 from functools import wraps
 
-########################################## Basic usage ##########################################
+########################################## Basic usage ###############################################################
 
 # without wraps
 def my_decorator(some_func):
@@ -21,7 +23,7 @@ def helloworld():
     return
 helloworld()
 
-########################################## With or without wraps ##########################################
+########################################## With or without wraps #####################################################
 
 # with wraps: all informations like function name, docstring, arguments list, etc inside the some_func are copied
 def my_logger_with_wraps(some_func):
@@ -40,7 +42,6 @@ def my_logger_without_wraps(some_func):
         logging.info(msg='ran with args: {} and key word args: {}'.format(args, kwargs))
         return some_func(*args, **kwargs)
     return wrapper_func
-
 
 @my_logger_with_wraps
 def display_info1(name, info, phone=""):
@@ -63,8 +64,7 @@ def compare_with_wraps_and_without_wraps():
     # note that this will return None which means the docstring is not copied
     print(display_info2.__doc__)
 
-
-############################### which one get executed first if 2 decorators ###############################
+############################### which one get executed first if 2 decorators ###########################################
 """ Conclusions:
 If both don't use the @wraps decorator, it is stacked
 The strange thing is if both use @wraps, the executed sequence are the same
@@ -98,8 +98,11 @@ def gen_list2(count):
         my_list.append(x)
     return my_list
 
+# compare_with_wraps_and_without_wraps()
+gen_list1(100)
+gen_list2(100)
 
-########################################## Decorator for dp programming ##########################################
+########################################## Decorator for dp programming ##################################################
 import functools
 def memoize(func):
     memo = dict()
@@ -120,59 +123,59 @@ def fibonacci(n):
     assert n>=0
     return n if n in (0,1) else fibonacci(n-1) + fibonacci(n-2)
 
-
-############################# How to manipulate extra actions on an existing class  ###############################
-class TestClass:
-    def __init__(self):
-        print("{} instanciated!".format(TestClass.__name__))
-
-def addToClass(cls):
-    def decorator(some_func):
-        setattr(cls, some_func.__name__, some_func)
-        return some_func
-    return decorator
-
-def test_class_decorator():
-    # self refers to the instance of TestClass
-    @addToClass(TestClass)
-    def hello(self):
-        print("hello world")
-
-    t = TestClass()
-    t.hello()
-
-if __name__ == "__main__":
-    from timeit import Timer
-    measure = [
-        {'exec': 'fibonacci(100)','import':'fibonacci', 'func':fibonacci},
-        {'exec': 'nsum(200)', 'import':'nsum', 'func':nsum}
-    ]
-    for m in measure:
-        t = Timer(stmt=m["exec"], setup="from __main__ import {}".format(m["import"]))
-        print("name: {}, doc: {}, executing: {}, time: {}".format(m["func"].__name__, m["func"].__doc__, m["exec"], t.timeit()))
-
-    # compare_with_wraps_and_without_wraps()
-
-    gen_list1(100)
-    gen_list2(100)
-
-    test_class_decorator()
+from timeit import Timer
+measure = [
+    {'exec': 'fibonacci(100)','import':'fibonacci', 'func':fibonacci},
+    {'exec': 'nsum(200)', 'import':'nsum', 'func':nsum}
+]
+for m in measure:
+    t = Timer(stmt=m["exec"], setup="from __main__ import {}".format(m["import"]))
+    print("name: {}, doc: {}, executing: {}, time: {}".format(m["func"].__name__, m["func"].__doc__, m["exec"], t.timeit()))
 
 
-############################# Implement decorator class ###############################
+############################# class decorator: request with waiting  ######################################################
+from functools import wraps
+from random import randint
+import time
+def wait_random(min_wait=1, max_wait=10):
+    def inner_func(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            interval = randint(min_wait, max_wait)
+            print("Start waiting: {}s".format(interval))
+            time.sleep(interval)
+            res = func(*args, **kwargs)
+            print("End waiting: {}".format(func))
+            return res
+        return wrapper
+    return inner_func
 
-from abc import ABCMeta, abstractclassmethod
-# a base wrapper for decorator class 
-class BaseWrapper(metaclass=ABCMeta):
-    @abstractclassmethod
-    def __call__(self, func):
-        pass
+def classdecorator(cls):
+    for name, val in vars(cls).items():
+        if callable(val):
+            setattr(cls, name, wait_random()(val))
+    return cls
 
+@classdecorator
+class Scrapper:
+    def scrape1(self):
+        print("scrape1")
+    def scrape2(self):
+        print("scrape2")
+    def scrape3(self):
+        print("scrape3")
+scrapper = Scrapper()
+scrapper.scrape1()
+scrapper.scrape2()
+scrapper.scrape3()
 
-class RetryConnection(BaseWrapper):
+############################# Implement decorator class that can create a decorator function ###############################
+
+class RetryConnection:
 
     def __init__(self):
         pass
     
     def __call__(self):
         pass
+

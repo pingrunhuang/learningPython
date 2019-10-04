@@ -8,6 +8,10 @@ Use case
 2. Implicit conversion of values to custom classes (you might want to hide all of these complexities from users writing the class)
 3. Enforcing different naming conventions and style guidelines (like “every method should have a docstring”)
 4. Adding new attributes to a class
+
+Reference:
+1. https://blog.ionelmc.ro/2015/02/09/understanding-python-metaclasses/
+2. 
 """
 
 # 2 ways of creating a new class 
@@ -48,7 +52,7 @@ class SomeClass(metaclass=SnakeCaseMetaclass):
     someAttr = 5
 
 someCls = SomeClass()
-# print(someCls.some_attr)
+print(someCls.some_attr)
 
 
 ################################################ Singleton with metaclass ################################################

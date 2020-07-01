@@ -68,4 +68,4 @@ def test(func):
 
 
 if __name__=='__main__':
-    test(estimate_number_points_in_quarter_circle_numpy)
+    test(estimate_number_points_in_quarter_circle)

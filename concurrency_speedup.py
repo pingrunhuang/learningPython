@@ -4,7 +4,7 @@ Summary of this post: https://realpython.com/python-concurrency/
 """
 import time
 
-###############equencial version##############################
+###############sequencial version##############################
 import requests
 def seq_download(url, session):
     with session.get(url) as response:
@@ -84,6 +84,7 @@ def set_session_for_each_process():
         sess = requests.Session()
     
 def multiprocess_download_one(url):
+    assert sess is not None
     with sess.get(url) as response:
         print(f"Read {len(response.content)} from {url}")
 

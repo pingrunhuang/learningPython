@@ -3,7 +3,7 @@ from unittest import TestCase
 import pandas as pd
 from io import BytesIO
 from requests.exceptions import Timeout
-from functions import RemovalService, http_get_data, get_df1, get_df2
+from functions import http_get_data, get_df1, get_df2
 import os
 
 '''
@@ -28,7 +28,7 @@ class TestDFUtils(TestCase):
         output = BytesIO()
         writer = pd.ExcelWriter(output, engine='xlsxwriter')
         df.to_excel(writer, sheet_name='sheet1', index=False)
-        writer.save()
+        writer.close()
         output.seek(0)
 
         with patch('builtins.open', autospec=True) as mock:  # autosepc to make sure mispell error
